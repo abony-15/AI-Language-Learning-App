@@ -9,6 +9,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  const testKey = String.fromEnvironment('GEMINI_API_KEY');
+  print("🔑 GEMINI_API_KEY loaded: ${testKey.isNotEmpty ? 'YES' : 'NO'}");
+  if (testKey.isEmpty) {
+    print("❌ Add --dart-define=GEMINI_API_KEY=your_key in Run Configuration");
+  }
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
