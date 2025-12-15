@@ -7,7 +7,7 @@ class ChatProvider extends ChangeNotifier {
   bool isLoading = false;
 
   final List<Message> messages = [];
-  final GeminiService _geminiService = GeminiService(); // <-- ADD THIS
+  final GeminiService _geminiService = GeminiService();
 
   void setLanguage(String lang) {
     selectedLanguage = lang;
@@ -23,7 +23,11 @@ class ChatProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    final response = await _geminiService.sendMessage(userMessage);
+    // ✅ PASS THE LANGUAGE TO GEMINI SERVICE
+    final response = await _geminiService.sendMessage(
+        userMessage,
+        selectedLanguage
+    );
 
     messages.add(Message(text: response, isUser: false));
     isLoading = false;
